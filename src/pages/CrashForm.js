@@ -1,58 +1,89 @@
 import React, { useState } from 'react';
-import { saveAs } from 'file-saver';
+import './CrashForm.css';
 
 function CrashForm() {
   const [formData, setFormData] = useState({
-    date: '', time: '', location: '', weather: '', lighting: '',
-    driverName: '', driverLicense: '', vehicleMake: '', vehicleModel: '', citationCode: ''
+    reportNumber: '',
+    crashDate: '',
+    crashTime: '',
+    location: '',
+    city: '',
+    county: '',
+    numberInjured: '',
+    numberKilled: '',
+    beatOfOccurrence: '',
+    reportingDistrict: ''
   });
-
-  const [errors, setErrors] = useState({});
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    setErrors(prev => ({ ...prev, [field]: '' }));
-  };
-
-  const validate = () => {
-    const newErrors = {};
-    ['date','time','location','driverName','vehicleMake','citationCode'].forEach(f => {
-      if (!formData[f]) newErrors[f] = 'Required';
-    });
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validate()) return;
-    alert('Form submitted successfully!');
+    alert('Crash report submitted!');
   };
-
-  const handleExport = () => {
-    const blob = new Blob([JSON.stringify(formData, null, 2)], { type: 'application/json' });
-    saveAs(blob, `crash-report-${formData.date || 'unspecified'}.json`);
-  };
-
-  const inputStyle = (field) => errors[field] ? { border: '1px solid red' } : {};
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '600px', margin: 'auto' }}>
-      <h2>Crash Report Form</h2>
-      <form onSubmit={handleSubmit}>
-        {Object.keys(formData).map((field) => (
-          <div key={field}>
-            <label>{field}:</label><br />
-            <input
-              type="text"
-              value={formData[field]}
-              style={inputStyle(field)}
-              onChange={(e) => handleChange(field, e.target.value)}
-            /><br />
+    <div className="form-wrapper">
+      <h2>CHP 555 Crash Report - Header Section</h2>
+      <form onSubmit={handleSubmit} className="chp-form">
+        <div className="chp-row">
+          <div className="chp-field">
+            <label>Report Number</label>
+            <input value={formData.reportNumber} onChange={e => handleChange('reportNumber', e.target.value)} />
           </div>
-        ))}
-        <button type="submit">Submit</button>
-        <button type="button" onClick={handleExport} style={{ marginLeft: '1rem' }}>Download Report</button>
+          <div className="chp-field">
+            <label>Date of Crash</label>
+            <input type="date" value={formData.crashDate} onChange={e => handleChange('crashDate', e.target.value)} />
+          </div>
+          <div className="chp-field">
+            <label>Time of Crash</label>
+            <input type="time" value={formData.crashTime} onChange={e => handleChange('crashTime', e.target.value)} />
+          </div>
+        </div>
+
+        <div className="chp-row">
+          <div className="chp-field-wide">
+            <label>Location of Crash (Street/Highway/Intersection)</label>
+            <input value={formData.location} onChange={e => handleChange('location', e.target.value)} />
+          </div>
+        </div>
+
+        <div className="chp-row">
+          <div className="chp-field">
+            <label>City</label>
+            <input value={formData.city} onChange={e => handleChange('city', e.target.value)} />
+          </div>
+          <div className="chp-field">
+            <label>County</label>
+            <input value={formData.county} onChange={e => handleChange('county', e.target.value)} />
+          </div>
+        </div>
+
+        <div className="chp-row">
+          <div className="chp-field">
+            <label>Number Injured</label>
+            <input type="number" value={formData.numberInjured} onChange={e => handleChange('numberInjured', e.target.value)} />
+          </div>
+          <div className="chp-field">
+            <label>Number Killed</label>
+            <input type="number" value={formData.numberKilled} onChange={e => handleChange('numberKilled', e.target.value)} />
+          </div>
+        </div>
+
+        <div className="chp-row">
+          <div className="chp-field">
+            <label>Beat of Occurrence</label>
+            <input value={formData.beatOfOccurrence} onChange={e => handleChange('beatOfOccurrence', e.target.value)} />
+          </div>
+          <div className="chp-field">
+            <label>Reporting District</label>
+            <input value={formData.reportingDistrict} onChange={e => handleChange('reportingDistrict', e.target.value)} />
+          </div>
+        </div>
+
+        <button type="submit" style={{ marginTop: '1rem' }}>Submit</button>
       </form>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../CrashForm.css';
+import VehicleForm from '../components/VehicleForm';
+import PeopleForm from '../components/PeopleForm';
 
 function CrashForm() {
   const [formData, setFormData] = useState({
@@ -20,7 +22,9 @@ function CrashForm() {
     officerName: '',
     badgeNumber: '',
     narrative: '',
-    diagramNotes: ''
+    diagramNotes: '',
+    vehicles: [],
+    people: []
   });
 
   const handleChange = (field, value) => {
@@ -34,7 +38,7 @@ function CrashForm() {
 
   return (
     <div className="form-wrapper">
-      <h2>CHP 555 Crash Report (Full Layout)</h2>
+      <h2>CHP 555 Crash Report (Full Entry)</h2>
       <form onSubmit={handleSubmit} className="chp-form">
 
         {/* Header Section */}
@@ -76,6 +80,12 @@ function CrashForm() {
         <div className="chp-row">
           <div className="chp-field-wide"><label>Primary Collision Factor</label><input value={formData.primaryCollisionFactor} onChange={e => handleChange('primaryCollisionFactor', e.target.value)} /></div>
         </div>
+
+        {/* Vehicles Section */}
+        <VehicleForm onVehiclesChange={(vehicles) => handleChange('vehicles', vehicles)} />
+
+        {/* People Section */}
+        <PeopleForm onPeopleChange={(people) => handleChange('people', people)} />
 
         {/* Narrative and Diagram */}
         <div className="chp-row">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../CrashForm.css';
 import VehicleForm from '../components/VehicleForm';
 import PeopleForm from '../components/PeopleForm';
+import PartySection from '../components/PartySection';
 
 function CrashForm() {
   const [formData, setFormData] = useState({
@@ -85,6 +86,7 @@ function CrashForm() {
         <VehicleForm onVehiclesChange={(vehicles) => handleChange('vehicles', vehicles)} />
 
         {/* People Section */}
+        <PartySection onPartyChange={(party) => handleChange('party', party)} />
         <PeopleForm onPeopleChange={(people) => handleChange('people', people)} />
 
         {/* Narrative and Diagram */}

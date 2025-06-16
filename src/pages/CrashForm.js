@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CrashForm.css';
+import '../CrashForm.css';
 
 function CrashForm() {
   const [formData, setFormData] = useState({

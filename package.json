@@ -11,7 +11,8 @@
     "react-leaflet": "^4.2.1",
     "leaflet": "^1.9.4",
     "chart.js": "^4.4.0",
-    "react-chartjs-2": "^5.2.0"
+    "react-chartjs-2": "^5.2.0",
+    "@supabase/supabase-js": "^2.0.0",
   },
   "scripts": {
     "start": "react-scripts start",
